@@ -5,30 +5,55 @@
 
       <form @submit.prevent="guardar">
 
-        <div class="form-group">
-          <p>Nombre</p>
-          <input id="nombre" type="text" class="form-control" v-model.trim="dato.nombre" @input="datoDirty.nombre = true">
-          <div v-if="!this.validarNombre() && datoDirty.nombre" class="alert alert-danger mt-1">
-            <span>{{ this.obtenerMensajeNombre() }}</span>
+        <div>
+          <div class="form-group">
+            <p>Nombre</p>
+            <input id="nombre" type="text" class="form-control" v-model.trim="dato.nombre" @input="datoDirty.nombre = true">
+            <div v-if="!this.validarNombre() && datoDirty.nombre" class="alert alert-danger mt-1">
+              <span>{{ this.obtenerMensajeNombre() }}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <p>Edad</p>
+            <input id="edad" type="number" class="form-control" v-model.trim="dato.edad" @input="datoDirty.edad = true">
+            <div v-if="!this.validarEdad() && datoDirty.edad" class="alert alert-danger mt-1">
+              <span>{{ this.obtenerMensajeEdad() }}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <p>Email</p>
+            <input id="email" type="email" class="form-control" v-model.trim="dato.email" @input="datoDirty.email = true">
+            <div v-if="!this.validarEmail() && datoDirty.email" class="alert alert-danger mt-1">
+              <span>{{ this.obtenerMensajeEmail() }}</span>
+            </div>
           </div>
         </div>
 
-        <div class="form-group">
-          <p>Edad</p>
-          <input id="edad" type="number" class="form-control" v-model.trim="dato.edad" @input="datoDirty.edad = true">
-          <div v-if="!this.validarEdad() && datoDirty.edad" class="alert alert-danger mt-1">
-            <span>{{ this.obtenerMensajeEdad() }}</span>
+        <button class="btn btn-success my-3" v-if="this.puedeGuardar()" type="submit" @click="this.enviar()">Guardar</button>
+
+        <div>
+          <p> Dato ingresado </p>
+          <div class="table-responsive">
+            <table class="table table-dark">
+              <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Email</th>
+              </tr>
+
+              <tr>
+                <td>{{ dato.nombre }}</td>
+                <td>{{ dato.edad }}</td>
+                <td>{{ dato.email }}</td>
+              </tr>
+
+            </table>
           </div>
         </div>
 
-        <div class="form-group">
-          <p>Email</p>
-          <input id="email" type="email" class="form-control" v-model.trim="dato.email" @input="datoDirty.email = true">
-          <div v-if="!this.validarEmail() && datoDirty.email" class="alert alert-danger mt-1">
-            <span>{{ this.obtenerMensajeEmail() }}</span>
-          </div>
-        </div>
-
+        <p> Datos guardados </p>
         <div class="table-responsive">
           <table class="table table-dark">
             <tr>
@@ -37,16 +62,16 @@
               <th>Email</th>
             </tr>
 
-            <tr>
-              <td>{{ dato.nombre }}</td>
-              <td>{{ dato.edad }}</td>
-              <td>{{ dato.email }}</td>
+            <tr v-for="(usuario, index) in usuarios" :key="index">              
+              <td>{{ usuario.nombre }}</td>
+              <td>{{ usuario.edad }}</td>
+              <td>{{ usuario.email }}</td>
             </tr>
 
           </table>
         </div>
 
-        <button class="btn btn-success my-3" v-if="this.puedeGuardar()" type="submit" @click="this.enviar()">Guardar</button>
+        
 
       </form>
 
@@ -68,6 +93,7 @@ export default {
     return {
       dato: this.inicializarDatos(),
       datoDirty: this.inicializarDatos(),
+      usuarios: [this.inicializarDatos()],
     }
   },
   methods: {
@@ -138,7 +164,8 @@ export default {
       return this.validarNombre() && this.validarEdad() && this.validarEmail()
     },
     enviar(){
-      this.dato = this.inicializarDatos(),
+      this.usuarios.push(this.dato)
+      this.dato = this.inicializarDatos()
       this.datoDirty = this.inicializarDatos()
     },
   },

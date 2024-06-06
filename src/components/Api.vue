@@ -2,14 +2,14 @@
 
   <section class="src-components-api">
 
-    <button class="btn btn-info my-3 mr-2" @click="this.getUsuarios()">Obtener usuarios</button>
+    <button class="btn btn-info my-3 mr-2" @click="this.getUsers()">Obtener usuarios</button>
     <div v-if="usuarios.length" class="table-responsive">
       <table class="table table-dark">
         <tr>
-          <th>id</th>
-          <th>nombreCompleto</th>
-          <th>email</th>
-          <th>telefono</th>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Telefono</th>
         </tr>
 
         <tr v-for="(usuario, index) in usuarios" :key="index">
@@ -42,8 +42,8 @@ export default {
     }
   },
   methods: {
-    async getUsuarios(){
-        const u = await userServices.getAll()
+    async getUsers(){
+        const u = await userServices.getUsers()
         this.usuarios = u        
       },
   },
