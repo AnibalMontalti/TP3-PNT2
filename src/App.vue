@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="jumbotron">      
+    <div>      
       <h2>TP3</h2>
       <hr>
 

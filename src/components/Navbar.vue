@@ -11,6 +11,9 @@
           <li class="nav-item">
             <RouterLink class="nav-link" to="/formulario">Formulario</RouterLink>
           </li>
+          <li class="nav-item">
+            <RouterLink class="nav-link" to="/api">API</RouterLink>
+          </li>
         </ul>
       </div>
     </nav>
@@ -40,7 +43,4 @@ export default {
 </script>
 
 <style scoped lang="css">
-  .src-components-navbar {
-    
-  }
 </style>
